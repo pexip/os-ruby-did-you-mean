@@ -1,0 +1,13 @@
+ruby-did-you-mean (1.0.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Set Multi-Arch: foreign to allow crossinstall of ruby itself
+  * Set Standards-Version to 3.9.7 (no addtl. changes)
+
+ -- Christian Hofstaedtler <zeha@debian.org>  Tue, 01 Mar 2016 19:01:47 +0100
+
+ruby-did-you-mean (1.0.0-1) unstable; urgency=medium
+
+  * Initial release
+
+ -- Antonio Terceiro <terceiro@debian.org>  Tue, 19 Jan 2016 15:01:49 -0200

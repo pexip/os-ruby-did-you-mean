@@ -1,0 +1,29 @@
+Source: ruby-did-you-mean
+Section: ruby
+Priority: optional
+Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Uploaders: Antonio Terceiro <terceiro@debian.org>
+Build-Depends: debhelper (>= 9~),
+               gem2deb
+Standards-Version: 3.9.7
+Vcs-Git: https://anonscm.debian.org/git/pkg-ruby-extras/ruby-did-you-mean.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/ruby-did-you-mean.git
+Homepage: https://github.com/yuki24/did_you_mean
+Testsuite: autopkgtest-pkg-ruby
+XS-Ruby-Versions: all
+
+Package: ruby-did-you-mean
+Architecture: all
+XB-Ruby-Versions: ${ruby:Versions}
+# Note: this package is part of the "interpreter bundled" set. As such it should not depend on ruby and needs to be Multi-Arch aware.
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: smart error messages for Ruby > 2.3
+ This package provides the infrastructure to produce smart error messages on
+ Ruby > 2.3.  When an undefined method is called, it will suggest similar
+ method names. It will also catch mispellings on known method names, such as
+ "initialize", and warn developers about them.
+ .
+ Starting with version 2.3, the Ruby interpreter will automatically load this
+ library on startup.
