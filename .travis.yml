@@ -3,9 +3,12 @@ script:   bundle exec rake
 cache:    bundler
 sudo:     false
 
+before_install:
+  - gem install bundler
+
 after_success:
   - bundle exec rake test:accuracy
   - bundle exec rake benchmark:memory
 
 rvm:
-  - ruby-head
+  - 2.5.1

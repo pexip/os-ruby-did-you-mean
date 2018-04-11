@@ -9,18 +9,17 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Yuki Nishijima"]
   spec.email         = ["mail@yukinishijima.net"]
   spec.summary       = '"Did you mean?" experience in Ruby'
-  spec.description   = '"did you mean?" experience in Ruby: the error message will tell you the right one when you misspelled something.'
+  spec.description   = 'The gem that has been saving people from typos since 2014.'
   spec.homepage      = "https://github.com/yuki24/did_you_mean"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.files         = `git ls-files`.split($/).reject{|path| path.start_with?('evaluation/') }
   spec.test_files    = spec.files.grep(%r{^(test)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 2.3.0dev'
+  spec.required_ruby_version = '>= 2.5.0'
 
-  spec.add_development_dependency "bundler", "~> 1.5"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "minitest"
 end

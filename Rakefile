@@ -4,31 +4,20 @@ require 'rake/testtask'
 Rake::TestTask.new do |task|
   task.libs << "test"
 
-  task.test_files = Dir['test/**/*_test.rb'].reject do |path|
-    /(verbose_formatter|extra_features)/ =~ path
-  end
-
-  task.verbose = true
-  task.warning = true
+  task.test_files = Dir['test/**/*_test.rb'].reject {|path| /(experimental)/ =~ path }
+  task.verbose    = true
+  task.warning    = true
 end
 
-Rake::TestTask.new("test:verbose_formatter") do |task|
+Rake::TestTask.new("test:experimental") do |task|
   task.libs << "test"
-  task.pattern = 'test/verbose_formatter_test.rb'
+  task.pattern = 'test/experimental/**/*_test.rb'
   task.verbose = true
   task.warning = true
-  task.ruby_opts << "-rdid_you_mean/verbose_formatter"
+  task.ruby_opts << "-rdid_you_mean/experimental"
 end
 
-Rake::TestTask.new("test:extra_features") do |task|
-  task.libs << "test"
-  task.pattern = 'test/extra_features/**/*_test.rb'
-  task.verbose = true
-  task.warning = true
-  task.ruby_opts << "-rdid_you_mean/extra_features"
-end
-
-task default: %i(test test:verbose_formatter test:extra_features)
+task default: %i(test test:experimental)
 
 namespace :test do
   namespace :accuracy do
@@ -46,13 +35,13 @@ namespace :test do
       puts "\n"
     end
 
-    sh 'bundle exec ruby evaluation/calculator.rb'
+    sh 'ruby evaluation/calculator.rb'
   end
 end
 
 namespace :benchmark do
   desc "Measure memory usage by the did_you_mean gem"
   task :memory do
-    sh 'bundle exec ruby benchmark/memory_usage.rb'
+    sh 'ruby benchmark/memory_usage.rb'
   end
 end
