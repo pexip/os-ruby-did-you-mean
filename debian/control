@@ -1,8 +1,9 @@
 Source: ruby-did-you-mean
 Section: ruby
 Priority: optional
-Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
-Uploaders: Antonio Terceiro <terceiro@debian.org>
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+XSBC-Pexip-Original-Uploaders: Antonio Terceiro <terceiro@debian.org>
 Build-Depends: debhelper (>= 9~),
                gem2deb
 Standards-Version: 3.9.7
@@ -11,6 +12,7 @@ Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/ruby-did-you-mean.g
 Homepage: https://github.com/yuki24/did_you_mean
 Testsuite: autopkgtest-pkg-ruby
 XS-Ruby-Versions: all
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: ruby-did-you-mean
 Architecture: all
