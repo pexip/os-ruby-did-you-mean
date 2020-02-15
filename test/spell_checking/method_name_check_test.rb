@@ -1,12 +1,18 @@
 require 'test_helper'
 
-class MethodNameTest < Minitest::Test
+class MethodNameCheckTest < Minitest::Test
   class User
     def friends; end
     def first_name; end
     def descendants; end
     def call_incorrect_private_method
       raiae NoMethodError
+    end
+
+    def raise_no_method_error
+      self.firstname
+    rescue NoMethodError => e
+      raise e, e.message, e.backtrace
     end
 
     protected
@@ -70,5 +76,44 @@ class MethodNameTest < Minitest::Test
 
     assert_correction :raise, error.corrections
     assert_match "Did you mean?  raise", error.to_s
+  end
+
+  def test_exclude_methods_on_nil
+    error = assert_raises(NoMethodError){ nil.map }
+    assert_empty error.corrections
+  end
+
+  def test_does_not_exclude_custom_methods_on_nil
+    def nil.empty?
+    end
+
+    error = assert_raises(NoMethodError){ nil.empty }
+    assert_correction :empty?, error.corrections
+  ensure
+    NilClass.class_eval { undef empty? }
+  end
+
+  def test_does_not_append_suggestions_twice
+    error = assert_raises NoMethodError do
+      begin
+        @user.firstname
+      rescue NoMethodError => e
+        raise e, e.message, e.backtrace
+      end
+    end
+
+    assert_equal 1, error.to_s.scan(/Did you mean/).count
+  end
+
+  def test_does_not_append_suggestions_three_times
+    error = assert_raises NoMethodError do
+      begin
+        @user.raise_no_method_error
+      rescue NoMethodError => e
+        raise e, e.message, e.backtrace
+      end
+    end
+
+    assert_equal 1, error.to_s.scan(/Did you mean/).count
   end
 end

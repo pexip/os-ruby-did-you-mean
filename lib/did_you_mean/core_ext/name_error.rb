@@ -1,16 +1,16 @@
 module DidYouMean
   module Correctable
-    prepend_features NameError
-
     def original_message
       method(:to_s).super_method.call
     end
 
     def to_s
       msg = super.dup
-      bt  = caller(1, 6)
 
-      msg << Formatter.new(corrections).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
+      if !cause.respond_to?(:corrections) || cause.corrections.empty?
+        msg << DidYouMean.formatter.message_for(corrections)
+      end
+
       msg
     rescue
       super

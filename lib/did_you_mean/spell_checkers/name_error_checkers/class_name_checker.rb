@@ -1,17 +1,20 @@
-# -*- frozen-string-literal: true -*-
+# frozen-string-literal: true
 require 'delegate'
+require "did_you_mean/spell_checker"
 
 module DidYouMean
   class ClassNameChecker
-    include SpellCheckable
     attr_reader :class_name
 
     def initialize(exception)
-      @class_name, @receiver = exception.name, exception.receiver
+      @class_name, @receiver, @original_message = exception.name, exception.receiver, exception.original_message
     end
 
-    def candidates
-      {class_name => class_names}
+    def corrections
+      @corrections ||= SpellChecker.new(dictionary: class_names)
+                         .correct(class_name)
+                         .map(&:full_name)
+                         .reject {|qualified_name| @original_message.include?(qualified_name) }
     end
 
     def class_names
@@ -20,10 +23,6 @@ module DidYouMean
           ClassName.new(c, scope == Object ? "" : "#{scope}::")
         end
       end
-    end
-
-    def corrections
-      super.map(&:full_name)
     end
 
     def scopes
