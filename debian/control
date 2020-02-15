@@ -12,7 +12,7 @@ Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/ruby-did-you-mean.g
 Homepage: https://github.com/yuki24/did_you_mean
 Testsuite: autopkgtest-pkg-ruby
 XS-Ruby-Versions: all
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
 
 Package: ruby-did-you-mean
 Architecture: all
