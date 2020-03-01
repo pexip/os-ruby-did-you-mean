@@ -4,11 +4,12 @@ Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
 XSBC-Pexip-Original-Uploaders: Antonio Terceiro <terceiro@debian.org>
-Build-Depends: debhelper (>= 9~),
-               gem2deb
-Standards-Version: 3.9.7
-Vcs-Git: https://anonscm.debian.org/git/pkg-ruby-extras/ruby-did-you-mean.git
-Vcs-Browser: https://anonscm.debian.org/cgit/pkg-ruby-extras/ruby-did-you-mean.git
+Build-Depends: debhelper (>= 11~),
+               gem2deb,
+               rake
+Standards-Version: 4.1.3
+Vcs-Git: https://salsa.debian.org/ruby-team/ruby-did-you-mean.git
+Vcs-Browser: https://salsa.debian.org/ruby-team/ruby-did-you-mean
 Homepage: https://github.com/yuki24/did_you_mean
 Testsuite: autopkgtest-pkg-ruby
 XS-Ruby-Versions: all
@@ -17,7 +18,6 @@ XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
 Package: ruby-did-you-mean
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
-# Note: this package is part of the "interpreter bundled" set. As such it should not depend on ruby and needs to be Multi-Arch aware.
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${shlibs:Depends}

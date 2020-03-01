@@ -1,0 +1,21 @@
+From: Antonio Terceiro <terceiro@debian.org>
+Date: Sat, 31 Mar 2018 13:58:04 -0300
+Subject: gemspec: force loading version from source directory
+
+---
+ did_you_mean.gemspec | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/did_you_mean.gemspec b/did_you_mean.gemspec
+index 90a4b0d..75fddbc 100644
+--- a/did_you_mean.gemspec
++++ b/did_you_mean.gemspec
+@@ -1,7 +1,5 @@
+ # coding: utf-8
+-lib = File.expand_path('../lib', __FILE__)
+-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+-require 'did_you_mean/version'
++require './lib/did_you_mean/version.rb'
+ 
+ Gem::Specification.new do |spec|
+   spec.name          = "did_you_mean"

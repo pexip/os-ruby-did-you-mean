@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VariableNameTest < Minitest::Test
+class VariableNameCheckTest < Minitest::Test
   class User
     def initialize
       @email_address = 'email_address@address.net'
@@ -57,6 +57,31 @@ class VariableNameTest < Minitest::Test
     assert_match "Did you mean?  person", error.to_s
   end
 
+  def test_corrections_include_ruby_predefined_objects
+    some_var = nil
+
+    false_error = assert_raises(NameError) do
+      some_var = fals
+    end
+
+    true_error = assert_raises(NameError) do
+      some_var = treu
+    end
+
+    nil_error = assert_raises(NameError) do
+      some_var = nol
+    end
+
+    assert_correction :false, false_error.corrections
+    assert_match "Did you mean?  false", false_error.to_s
+
+    assert_correction :true, true_error.corrections
+    assert_match "Did you mean?  true", true_error.to_s
+
+    assert_correction :nil, nil_error.corrections
+    assert_match "Did you mean?  nil", nil_error.to_s
+  end
+
   def test_corrections_include_instance_variable_name
     error = assert_raises(NameError){ @user.to_s }
 
@@ -80,5 +105,18 @@ class VariableNameTest < Minitest::Test
 
     assert_correction :@@does_exist, error.corrections
     assert_match "Did you mean?  @@does_exist", error.to_s
+  end
+
+  def test_struct_name_error
+    value = Struct.new(:does_exist).new
+    error = assert_raises(NameError){ value[:doesnt_exist] }
+
+    assert_correction [:does_exist, :does_exist=], error.corrections
+    assert_match "Did you mean?  does_exist", error.to_s
+  end
+
+  def test_exclude_typical_incorrect_suggestions
+    error = assert_raises(NameError){ foo }
+    assert_empty error.corrections
   end
 end

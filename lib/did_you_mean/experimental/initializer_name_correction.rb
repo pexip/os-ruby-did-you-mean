@@ -1,7 +1,9 @@
-# -*- frozen-string-literal: true -*-
+# frozen-string-literal: true
+
+require 'did_you_mean/levenshtein'
 
 module DidYouMean
-  module ExtraFeatures
+  module Experimental
     module InitializerNameCorrection
       def method_added(name)
         super

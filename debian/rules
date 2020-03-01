@@ -1,6 +1,12 @@
 #!/usr/bin/make -f
 
+include /usr/share/dpkg/pkg-info.mk
+
 export GEM2DEB_TEST_RUNNER = --check-dependencies
 
 %:
 	dh $@ --buildsystem=ruby --with ruby
+
+override_dh_auto_install:
+	dh_auto_install
+	test -f debian/ruby-did-you-mean/usr/share/rubygems-integration/all/specifications/did_you_mean-$(DEB_VERSION_UPSTREAM).gemspec
